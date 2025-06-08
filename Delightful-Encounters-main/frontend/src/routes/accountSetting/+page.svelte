@@ -67,7 +67,7 @@
       const response = await fetch(`${USER_URL}/`, {
         method: "PUT",
         body: formData,
-        credentials: "include"
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -86,9 +86,12 @@
 
   async function checkUserName() {
     if (userInfo.username !== initialUsername) {
-      const response = await fetch(`${CHECKUSERNAME_URL}/${userInfo.username}`, {
-        method: "GET"
-      });
+      const response = await fetch(
+        `${CHECKUSERNAME_URL}/${userInfo.username}`,
+        {
+          method: "GET",
+        }
+      );
       const result = await response.json();
       if (result.message === "Username already exists") {
         usernameExistMessage = "Username already exists";
@@ -112,7 +115,7 @@
     try {
       const response = await fetch(`${USER_URL}/`, {
         method: "DELETE",
-        credentials: "include"
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -138,7 +141,7 @@
     "StockCake-KangarooPortraitPose.jpg",
     "StockCake-MajesticLionPose.jpg",
     "StockCake-MajesticYellowBird.jpg",
-    "StockCake-SunsetDolphinLeap.jpg"
+    "StockCake-SunsetDolphinLeap.jpg",
   ];
 
   let selectedAvatar = "";
@@ -153,7 +156,7 @@
     };
   }
 
-   function getTodayDate() {
+  function getTodayDate() {
     const now = new Date();
     return now.toISOString().split("T")[0];
   }
@@ -171,13 +174,19 @@
         "Username must be 5-20 characters long and can include letters, numbers, and underscores only.";
     }
 
-    if (!userInfo.fname || userInfo.fname.length < 3 ||
-      userInfo.username.length > 20) {
+    if (
+      !userInfo.fname ||
+      userInfo.fname.length < 3 ||
+      userInfo.username.length > 20
+    ) {
       validationErrors.fname = "First name must be 3-20 characters long.";
     }
 
-    if (!userInfo.lname || userInfo.lname.length < 3||
-      userInfo.username.length > 20) {
+    if (
+      !userInfo.lname ||
+      userInfo.lname.length < 3 ||
+      userInfo.username.length > 20
+    ) {
       validationErrors.lname = "Last name must be 3-20 characters long.";
     }
 
@@ -186,16 +195,19 @@
       userInfo.description.length < 1 ||
       userInfo.description.length > 1000
     ) {
-      validationErrors.description = "Description must be 1-1000 characters long.";
+      validationErrors.description =
+        "Description must be 1-1000 characters long.";
     }
 
-    if (showPasswordField && (password.length < 5 || !/^[\w]+$/.test(password))) {
+    if (
+      showPasswordField &&
+      (password.length < 5 || !/^[\w]+$/.test(password))
+    ) {
       validationErrors.password =
         "Password must be at least 5 characters long and can include letters, numbers, and underscores only.";
     }
 
-    if(!userInfo.date_of_birth || userInfo.date_of_birth > getTodayDate()){
-     
+    if (!userInfo.date_of_birth || userInfo.date_of_birth > getTodayDate()) {
       validationErrors.date_of_birth = "You cannot be born in the future!";
     }
     if (validationErrors.length > 0) {
@@ -272,7 +284,11 @@
         </svg>
         <div class="edit-avatar">
           {#if avatarPreview}
-            <img class="avatar-preview" src={avatarPreview} alt="Avatar Preview" />
+            <img
+              class="avatar-preview"
+              src={avatarPreview}
+              alt="Avatar Preview"
+            />
           {:else if userInfo.avatar}
             <img
               class="avatar-preview"
@@ -286,7 +302,7 @@
               {#each avatars as avatar}
                 <img
                   on:click={setAvatarPath(avatar)}
-                  src={`http://localhost:3000/images/${avatar}`}
+                  src={`http://localhost:3001/images/${avatar}`}
                   class:active={selectedAvatar == avatar}
                 />
               {/each}
@@ -313,7 +329,7 @@
               type="text"
               bind:value={userInfo.username}
               on:blur={checkUserName}
-              on:input="{validateForm}"
+              on:input={validateForm}
             />
             {#if usernameExistMessage}
               <p class="validation-message">{usernameExistMessage}</p>
@@ -324,14 +340,24 @@
           </div>
           <div class="form-group">
             <label for="fname"><strong>First Name:</strong></label>
-            <input id="fname" type="text" bind:value={userInfo.fname} on:input="{validateForm}" />
+            <input
+              id="fname"
+              type="text"
+              bind:value={userInfo.fname}
+              on:input={validateForm}
+            />
             {#if validationErrors.fname}
               <p class="validation-message">{validationErrors.fname}</p>
             {/if}
           </div>
           <div class="form-group">
             <label for="lname"><strong>Last Name:</strong></label>
-            <input id="lname" type="text" bind:value={userInfo.lname} on:input="{validateForm}" />
+            <input
+              id="lname"
+              type="text"
+              bind:value={userInfo.lname}
+              on:input={validateForm}
+            />
             {#if validationErrors.lname}
               <p class="validation-message">{validationErrors.lname}</p>
             {/if}
@@ -342,7 +368,7 @@
               id="date_of_birth"
               type="date"
               bind:value={userInfo.date_of_birth}
-              on:input="{validateForm}"
+              on:input={validateForm}
             />
             {#if validationErrors.date_of_birth}
               <p class="validation-message">{validationErrors.date_of_birth}</p>
@@ -350,7 +376,10 @@
           </div>
           <div class="form-group">
             <label for="description"><strong>Description:</strong></label>
-            <textarea id="description" bind:value={userInfo.description} on:input="{validateForm}"
+            <textarea
+              id="description"
+              bind:value={userInfo.description}
+              on:input={validateForm}
             ></textarea>
             {#if validationErrors.description}
               <p class="validation-message">{validationErrors.description}</p>
@@ -364,7 +393,12 @@
           {#if showPasswordField}
             <div class="form-group">
               <label for="password"><strong>New Password:</strong></label>
-              <input id="password" type="password" bind:value={password} on:input="{validateForm}" />
+              <input
+                id="password"
+                type="password"
+                bind:value={password}
+                on:input={validateForm}
+              />
               {#if validationErrors.password}
                 <p class="validation-message">{validationErrors.password}</p>
               {/if}
@@ -375,8 +409,12 @@
             <p class="validation-message">{errorMessage}</p>
           {/if}
           <div class="button-container">
-            <button type="submit" disabled={!isUsernameAvailable || !isValid}> Save </button>
-            <button type="button" on:click={() => (isEditing = false)}>Cancel</button>
+            <button type="submit" disabled={!isUsernameAvailable || !isValid}>
+              Save
+            </button>
+            <button type="button" on:click={() => (isEditing = false)}
+              >Cancel</button
+            >
           </div>
         </div>
       </form>
@@ -411,7 +449,9 @@
             <button on:click={openModal}>Delete Account</button>
             {#if isModalOpen}
               <Modal on:close={closeModal}>
-                <p style="text-align: center;;">Are you sure you want to delete your account?</p>
+                <p style="text-align: center;;">
+                  Are you sure you want to delete your account?
+                </p>
                 <button on:click={deleteAccount}>Delete</button>
               </Modal>
             {/if}
@@ -453,7 +493,7 @@
     z-index: 1;
     transform: rotate(6.659deg);
   }
-  .edit-avatar{
+  .edit-avatar {
     width: 50%;
   }
   .user-details {
@@ -471,25 +511,24 @@
     flex-direction: row;
   }
 
- @media (max-width: 1100px) {
-  
-  .user-details {
-    flex-direction: column;
-    width: 50%; /* Stack items vertically */
+  @media (max-width: 1100px) {
+    .user-details {
+      flex-direction: column;
+      width: 50%; /* Stack items vertically */
+    }
+    .user-info {
+      margin: 0% 0% 0% auto;
+    }
   }
-  .user-info{
-    margin: 0%  0%  0% auto;
+  @media (min-width: 1100px) {
+    .user-info {
+      margin: 2% 3% auto 8%;
+    }
   }
-}
-@media (min-width: 1100px){
-  .user-info{
-    margin: 2% 3% auto 8%;
-  }
-}
   .user-info {
     font-size: 30px; /* Set the font size to 18px or any other desired size */
     text-align: left;
-    
+
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -514,7 +553,7 @@
   .user-details img {
     width: 300px;
     height: 300px;
-    
+
     margin: auto;
     border: 5px solid #000000;
     border-radius: 50%;
@@ -541,10 +580,9 @@
   }
 
   .avatars {
- 
-  gap: 10px;
-  margin: 16px 16px;
-}
+    gap: 10px;
+    margin: 16px 16px;
+  }
 
   .avatars img {
     margin: 5px;
@@ -560,7 +598,7 @@
     border: 2px solid #000;
   }
 
-  .avatar-preview  {
+  .avatar-preview {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -594,13 +632,13 @@
     background-color: #f723fb;
   }
 
-  .form-group  p {
+  .form-group p {
     color: red;
     font-size: 12px;
     margin-top: -10px;
     font-weight: 600;
     margin-bottom: 10px;
-    text-transform:none;
+    text-transform: none;
     text-align: left;
   }
   img {

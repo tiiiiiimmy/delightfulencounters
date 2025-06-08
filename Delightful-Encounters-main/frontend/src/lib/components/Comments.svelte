@@ -16,7 +16,7 @@
   });
 
   async function loadComments() {
-    const response = await fetch(`http://localhost:3000/api/articles/${articleId}/comments`);
+    const response = await fetch(`http://localhost:3001/api/articles/${articleId}/comments`);
     if (response.status === 201|| 200) {
       const rawComments = await response.json();
       comments = organizeComments(rawComments);
@@ -54,7 +54,7 @@
   async function handleDelete(event) {
     const commentId = event.detail.commentId;
     const response = await fetch(
-      `http://localhost:3000/api/articles/${articleId}/comments/${commentId}`,
+      `http://localhost:3001/api/articles/${articleId}/comments/${commentId}`,
       {
         method: "DELETE",
         credentials: "include",
@@ -72,7 +72,7 @@
     const { commentId, replyContent } = event.detail;
     
 
-    const response = await fetch(`http://localhost:3000/api/articles/${articleId}/comments`, {
+    const response = await fetch(`http://localhost:3001/api/articles/${articleId}/comments`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -102,7 +102,7 @@
     }
     error = false;
 
-    const response = await fetch(`http://localhost:3000/api/articles/${articleId}/comments`, {
+    const response = await fetch(`http://localhost:3001/api/articles/${articleId}/comments`, {
       method: "POST",
       credentials: "include",
       headers: {

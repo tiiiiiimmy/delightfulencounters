@@ -270,7 +270,7 @@ public class WebsiteManagementApp extends JFrame {
 
         try {
             // Assuming avatarPath is just the filename, append it to the base URL
-            URL url = new URL("http://localhost:3000/images/" + avatarPath);
+            URL url = new URL("http://localhost:3001/images/" + avatarPath);
             Image image = ImageIO.read(url);
             Image scaledImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledImage);
