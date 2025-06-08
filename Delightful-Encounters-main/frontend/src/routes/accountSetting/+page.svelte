@@ -302,7 +302,7 @@
               {#each avatars as avatar}
                 <img
                   on:click={setAvatarPath(avatar)}
-                  src={`http://localhost:3001/images/${avatar}`}
+                  src={`http://localhost:3000/images/${avatar}`}
                   class:active={selectedAvatar == avatar}
                 />
               {/each}

@@ -19,7 +19,7 @@ import java.util.Optional;
 public class API {
     private static API instance;
 
-    private static final String BASE_URL = "http://localhost:3001/api";
+    private static final String BASE_URL = "http://localhost:3000/api";
 
     public static API getInstance() {
         if (instance == null) {

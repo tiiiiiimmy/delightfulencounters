@@ -8,7 +8,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
 // Set's our port to the PORT environment variable, or 3000 by default if the env is not configured.
-const PORT = process.env.PORT ?? 3001;
+const PORT = process.env.PORT ?? 3000;
 
 // Creates the express server
 const app = express();
